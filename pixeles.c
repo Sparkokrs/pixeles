@@ -259,7 +259,7 @@ void dibujar_rectangulo_color_en_imagen(Bmp *b, Color c, Coordenada supIzq, Coor
 /* Esta funcion recibe una struct de tipo Bmp y retorna una struct con el color predominante de la imagen (el color que mas
 se repite), si existe mas de un color predominante retorna cualquiera de los ellos. */
 Color color_predominante(Bmp b){
-	int i, j, k ,l, cont, contAux;				//Ya, aquí los voy a enredar un poquito, así que pongan atención a lo que se hace:
+	int i, j, k ,l, cont, contAux;					//Ya, aquí los voy a enredar un poquito, así que pongan atención a lo que se hace:
 	Color aux, predominante;					//Tenemos un contador, un contador auxiliar, un color auxiliar y el color predominante.
 	contAux = 0;
 
@@ -268,18 +268,18 @@ Color color_predominante(Bmp b){
 			aux = b.matriz[i][j].pixel;			//Asignamos el color del pixel que vamos a comparar con toda la matriz.
 			cont = 0;							//inicializamos el contador que hará válida nuestra comparación xd.
 
-			for(k=0; k<b.altura; k++){			//Acá comenzamos a recorrer toda la matriz comparando cada campo con el primer slot, es decir, matriz[0][0]
-				for(l=0; l<b.anchura; l++){		//Luego de comparar el primer slot de la matriz, con toda la matriz y generar la cuenta, recién se empieza a comparar
+			for(k=0; k<b.altura; k++){						//Acá comenzamos a recorrer toda la matriz comparando cada campo con el primer slot, es decir, matriz[0][0]
+				for(l=0; l<b.anchura; l++){					//Luego de comparar el primer slot de la matriz, con toda la matriz y generar la cuenta, recién se empieza a comparar
 												//el siguiente slot matriz[0][1], con toda la matriz nuevamente -sí, es súper ineficiente-, y así sucesivamente.
 					if(aux.rojo == b.matriz[k][l].pixel.rojo && aux.verde == b.matriz[k][l].pixel.verde && aux.azul == b.matriz[k][l].pixel.azul){
-						cont++;					//si el color es equivalente, contamos.
-						if(cont >= contAux){	//si el contador actual, es mayor al contador auxiliar, que es donde estamos guardando las 
+						cont++;						//si el color es equivalente, contamos.
+						if(cont >= contAux){				//si el contador actual, es mayor al contador auxiliar, que es donde estamos guardando las 
 												//comparaciones anteriores, asignamos un nuevo color predominante.
 												// OJO que siempre irá guardando el último píxel predominante, aunque hayan varios que sean predominante,
 												// ya que las instrucciones (arriba de la función) dicen que se puede mostrar cualquiera, en nuestro caso
 												// mostramos el último para no hacernos dramas.
 							predominante = b.matriz[k][l].pixel;	// Se asigna el color predominante actual
-							contAux = cont;		// nuestro contador del color predominante actual, pasa a ser nuestro contador auxiliar, para una próxima comparación.
+							contAux = cont;				// nuestro contador del color predominante actual, pasa a ser nuestro contador auxiliar, para una próxima comparación.
 						}
 					}
 				}				
@@ -302,9 +302,9 @@ void negativo_imagen(Bmp *b){
 			b->matriz[i][j].pixel.rojo = 255 - b->matriz[i][j].pixel.rojo;		// Asignamos el color negativo uno por uno, ya que el píxel puede tener
 			b->matriz[i][j].pixel.verde = 255 - b->matriz[i][j].pixel.verde;	// distintos valores, por ejemplo, (1, 100, 230), lo que nos da un
 			b->matriz[i][j].pixel.azul = 255 - b->matriz[i][j].pixel.azul;		// negativo de (254, 125, 25).
-																				// esto quiere decir que no lo podemos hacer de la forma en la
-																				// que estábamos asignando los píxeles:
-																				// b->matriz[i][j].pixel = 255 - b->matriz[i][j].pixel; <- ESTO ESTÁ MALO!!!
+												// esto quiere decir que no lo podemos hacer de la forma en la
+												// que estábamos asignando los píxeles:
+												// b->matriz[i][j].pixel = 255 - b->matriz[i][j].pixel; <- ESTO ESTÁ MALO!!!
 		}
 	}
 
@@ -319,20 +319,20 @@ void invertir_imagen(Bmp *b){
 	printf("\nLa matriz invertida horizontalmente: ");
 
 	for(i=0; i<b->altura; i++){						
-		for(j=0; j < ((b->anchura)/2); j++){		//Recorremos la matriz pero sólo hasta la mitad de las columnas, para así generar el espejo de éstas.
+		for(j=0; j < ((b->anchura)/2); j++){			//Recorremos la matriz pero sólo hasta la mitad de las columnas, para así generar el espejo de éstas.
 			auxR = b->matriz[i][j].pixel.rojo;		//Asignamos los colores a los auxiliares, para así reemplazar la columna izquierda por la derecha.
 			auxG = b->matriz[i][j].pixel.verde;
 			auxB = b->matriz[i][j].pixel.azul;
 
 			b->matriz[i][j].pixel = b->matriz[i][b->anchura - 1 - j].pixel;	//Asignamos los colores de la columna espejo derecha, a la izquierda.
 
-			b->matriz[i][b->anchura - 1 - j].pixel.rojo = auxR;				//Asignamos los colores de la columna espejo izquierda, a la derecha.
+			b->matriz[i][b->anchura - 1 - j].pixel.rojo = auxR;			//Asignamos los colores de la columna espejo izquierda, a la derecha.
 			b->matriz[i][b->anchura - 1 - j].pixel.verde = auxG;			//Para hacerlo gráficamente:
-			b->matriz[i][b->anchura - 1 - j].pixel.azul = auxB;				// 1 2 3 4 5	el 1 tiene que pasar a ser el 4 y viceversa, y así sucesivamente.
-																			// a b c d e =>	e d c b a
-																			// f g h i j =>	j i h g f
-																			// Pude haber creado una estructura de tipo Color que se llamara aux
-																			// y hacer la asignación de cada píxel, en vez de color por color.
+			b->matriz[i][b->anchura - 1 - j].pixel.azul = auxB;			// 1 2 3 4 5	el 1 tiene que pasar a ser el 4 y viceversa, y así sucesivamente.
+												// a b c d e =>	e d c b a
+												// f g h i j =>	j i h g f
+												// Pude haber creado una estructura de tipo Color que se llamara aux
+												// y hacer la asignación de cada píxel, en vez de color por color.
 		}
 	}
 
