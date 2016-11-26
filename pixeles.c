@@ -122,21 +122,21 @@ Bmp *crear_bmp(Uint alto, Uint ancho){
 	Bmp *b;		//puntero a una estructura de tipo Bmp
 
 	b = (Bmp *)malloc(sizeof(Bmp));		//asignamos la memoria que tendrá la estructura dinámica
-	if(b == NULL){						//verificamos si se pudo asignar memoria a la estructura dinámica,
-		printf("\nError");				//sino, mostramos error y terminamos el programa con la función exit(-1)
+	if(b == NULL){				//verificamos si se pudo asignar memoria a la estructura dinámica,
+		printf("\nError");		//sino, mostramos error y terminamos el programa con la función exit(-1)
 		exit(-1);
 	}
 
 	b->altura = alto;		//asignamos el alto al campo altura de la matriz b (como b es un puntero a una estructura, se necesita el operador FLECHA)
-							//que es exactamente lo mismo que escribir (*b).altura = alto; y los paréntesis son NECESARIOS.
+					//que es exactamente lo mismo que escribir (*b).altura = alto; y los paréntesis son NECESARIOS.
 	b->anchura = ancho;		//asignamos el ancho al campo anchura de la matriz b exactamente igual que el alto.
 	b->matriz = (Pixel **)malloc(alto*sizeof(Pixel *));	//Asignamos la memoria que tendrá nuestra **matriz con el tamaño del contenido de la matriz,
 														//es decir, el tamaño del campo de la matriz, que es nuestro (Pixel *).
 														//Desglosando un poco sería:
 														//b->matriz = la dirección del campo **matriz de nuestra estructura b.
 														//(Pixel **) = casteamos la asignación de memoria al tipo doble puntero de un Pixel
-																//esto se debe a que la función malloc es así: void *malloc(tamaño de la weá que asignaremos).
-																//y ya que estamos trabajando con una matriz (**matriz), se colocan 2 asteriscos.
+														//esto se debe a que la función malloc es así: void *malloc(tamaño de lo que queremos asignar).
+														//y ya que estamos trabajando con una matriz (**matriz), se colocan 2 asteriscos.
 														//alto = las filas de la matriz, es decir, el alto de ésta.
 														//sizeof(Pixel *) = el tamaño del contenido de cada fila, es decir, cada vector dinámico que asignaremos.
 	
@@ -279,7 +279,8 @@ Color color_predominante(Bmp b){
 												// ya que las instrucciones (arriba de la función) dicen que se puede mostrar cualquiera, en nuestro caso
 												// mostramos el último para no hacernos dramas.
 							predominante = b.matriz[k][l].pixel;	// Se asigna el color predominante actual
-							contAux = cont;				// nuestro contador del color predominante actual, pasa a ser nuestro contador auxiliar, para una próxima comparación.
+							contAux = cont;				// nuestro contador del color predominante actual, pasa a ser nuestro contador auxiliar, 
+												// para una próxima comparación.
 						}
 					}
 				}				
